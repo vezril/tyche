@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { CSRF_HEADER } from '@ynab-clone/shared';
+import { CSRF_HEADER } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories } from '../../src/db/seed.js';
@@ -28,7 +28,7 @@ describe('auth over HTTP', () => {
   const now = (): Date => new Date(nowMs);
 
   beforeEach(async () => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-auth-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-auth-'));
     nowMs = Date.parse('2026-06-12T00:00:00.000Z');
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);

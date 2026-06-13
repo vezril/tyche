@@ -6,7 +6,7 @@ import {
   type ReviewItemResponse,
   type ReviewQueueResponse,
   type TransactionResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { ReviewPage } from '../src/pages/ReviewPage.js';
 
 /**

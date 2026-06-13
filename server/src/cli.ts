@@ -10,12 +10,12 @@ import { loadEngineInputs } from './budget/queries.js';
 import { monthOfDate } from './budget/month.js';
 
 /**
- * The operator CLI (E7.S1, FR-35; architecture §8): `ynab-clone <command>`.
- * In the container it is /usr/local/bin/ynab-clone (see Dockerfile), so the
+ * The operator CLI (E7.S1, FR-35; architecture §8): `tyche <command>`.
+ * In the container it is /usr/local/bin/tyche (see Dockerfile), so the
  * documented one-commands are exactly:
  *
- *   docker compose exec app ynab-clone backup
- *   docker compose run --rm app ynab-clone restore /data/backups/<artifact>
+ *   docker compose exec app tyche backup
+ *   docker compose run --rm app tyche restore /data/backups/<artifact>
  *
  * `summary` prints a canonical JSON digest of balances, RTA, and transaction
  * counts — run it before backup on host A and after restore on host B and
@@ -105,7 +105,7 @@ switch (command) {
 
   case 'restore': {
     const artifact = args[0];
-    if (!artifact) fail('usage: ynab-clone restore <artifact.tar.gz>  (with the app STOPPED)');
+    if (!artifact) fail('usage: tyche restore <artifact.tar.gz>  (with the app STOPPED)');
     const result = restoreBackup(resolve(artifact), DATABASE_PATH);
     console.log(`restored ${artifact} -> ${DATABASE_PATH}`);
     if (result.replacedDatabasePath) {
@@ -149,7 +149,7 @@ switch (command) {
 
   default:
     console.error(
-      'usage: ynab-clone <backup | restore <artifact> | backups | summary | check>',
+      'usage: tyche <backup | restore <artifact> | backups | summary | check>',
     );
     process.exit(command === undefined || command === 'help' ? 0 : 1);
 }

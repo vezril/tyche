@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import type Database from 'better-sqlite3';
-import type { MigrationResponse } from '@ynab-clone/shared';
+import type { MigrationResponse } from '@tyche/shared';
 import { MigrationError, runMigration, type MigrationErrorCode } from '../migration/index.js';
 
 /**

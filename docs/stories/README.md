@@ -1,4 +1,4 @@
-# Stories — Self-Hosted YNAB Clone (MVP)
+# Stories — Tyche, a Self-Hosted YNAB-Style Budgeting App (MVP)
 
 | | |
 |---|---|

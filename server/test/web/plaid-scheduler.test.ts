@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type Database from 'better-sqlite3';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories } from '../../src/db/seed.js';

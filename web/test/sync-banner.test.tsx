@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import type { PlaidItemResponse } from '@ynab-clone/shared';
+import type { PlaidItemResponse } from '@tyche/shared';
 import { SyncBanner } from '../src/pages/SyncBanner.js';
 import { AuthProvider } from '../src/auth.js';
 import { Shell } from '../src/App.js';

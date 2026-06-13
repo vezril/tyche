@@ -61,7 +61,7 @@ Because aggregates are never stored (ADR-005), the check is a cross-verification
 - **On demand (AC-3):** `POST /api/admin/consistency/run` returns
   pass/mismatch-list within the request (single-digit ms at the data ceiling,
   per the E3 perf test); Ops screen button renders the per-entity list; also
-  `ynab-clone check` (non-zero exit on mismatch) for drills/cron.
+  `tyche check` (non-zero exit on mismatch) for drills/cron.
 - Tests: server/test/budget/consistency.test.ts (extended, 8),
   server/test/web/boot.test.ts, server/test/web/admin-api.test.ts,
   web/test/ops-page.test.tsx.

@@ -32,7 +32,7 @@ interface Rig {
 }
 
 function createDb(): Rig {
-  const dir = mkdtempSync(join(tmpdir(), 'ynab-e6-'));
+  const dir = mkdtempSync(join(tmpdir(), 'tyche-e6-'));
   const db = openDatabase(join(dir, 'app.db'));
   runMigrations(db);
   seedSystemCategories(db);

@@ -12,7 +12,7 @@ import { createPlaidSdkClient, listPlaidItems, listSyncLog, syncPlaidItem } from
  * against Plaid's sandbox:
  *
  *   PLAID_ENV=sandbox PLAID_CLIENT_ID=… PLAID_SECRET=… MASTER_KEY=… \
- *     DATABASE_PATH=./data/app.db npm run sync:sandbox -w @ynab-clone/server
+ *     DATABASE_PATH=./data/app.db npm run sync:sandbox -w @tyche/server
  *
  * It syncs every ACTIVE Item (link Items first through the app UI — Plaid's
  * sandbox accepts the user_good/pass_good test login) and prints the per-Item

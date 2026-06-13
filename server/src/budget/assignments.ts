@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3';
-import { milliunits, type Milliunits } from '@ynab-clone/shared';
+import { milliunits, type Milliunits } from '@tyche/shared';
 import { INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../db/seed.js';
 import { BudgetError } from './errors.js';
 import { isValidMonth } from './month.js';

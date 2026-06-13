@@ -1,7 +1,7 @@
 import { performance } from 'node:perf_hooks';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { randomUUID } from 'node:crypto';
-import type { AccountResponse, RegisterResponse } from '@ynab-clone/shared';
+import type { AccountResponse, RegisterResponse } from '@tyche/shared';
 import { createTestRig, type TestRig } from './helpers.js';
 
 // E2.S2: the per-account register — list, sort, filter, search, totals,

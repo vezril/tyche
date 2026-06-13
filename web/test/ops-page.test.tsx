@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import type { ConsistencyCheckResponse } from '@ynab-clone/shared';
+import type { ConsistencyCheckResponse } from '@tyche/shared';
 import { OpsPage } from '../src/pages/OpsPage.js';
 
 /**
@@ -42,11 +42,11 @@ function stubFetch(options: {
       if (url === '/api/admin/consistency/run') return json(options.run ?? bootReport());
       if (url === '/api/admin/backups')
         return json({
-          backups: [{ name: 'ynab-clone-backup-20260612T060000Z.tar.gz', sizeBytes: 4096, createdAt: '2026-06-12T06:00:00.000Z' }],
+          backups: [{ name: 'tyche-backup-20260612T060000Z.tar.gz', sizeBytes: 4096, createdAt: '2026-06-12T06:00:00.000Z' }],
         });
       if (url === '/api/admin/backup')
         return json({
-          artifact: { name: 'ynab-clone-backup-20260612T070000Z.tar.gz', sizeBytes: 4096, createdAt: '2026-06-12T07:00:00.000Z' },
+          artifact: { name: 'tyche-backup-20260612T070000Z.tar.gz', sizeBytes: 4096, createdAt: '2026-06-12T07:00:00.000Z' },
           pruned: [],
         });
       return { ok: false, status: 404, json: () => Promise.resolve({ error: 'not_found' }) } as Response;
@@ -97,9 +97,9 @@ describe('OpsPage (E7)', () => {
     const calls: FetchCall[] = [];
     stubFetch({ boot: bootReport(), calls });
     render(<OpsPage />);
-    await screen.findByText('ynab-clone-backup-20260612T060000Z.tar.gz'); // the listing
+    await screen.findByText('tyche-backup-20260612T060000Z.tar.gz'); // the listing
     fireEvent.click(screen.getByRole('button', { name: 'Back up now' }));
-    await screen.findByText(/Backup written: ynab-clone-backup-20260612T070000Z\.tar\.gz/);
+    await screen.findByText(/Backup written: tyche-backup-20260612T070000Z\.tar\.gz/);
     expect(calls).toContainEqual({ url: '/api/admin/backup', method: 'POST' });
     // The .env reminder is one line on the screen (ADR-007 / S1 dev note).
     expect(screen.getByText(/Remember: back up/).textContent).toContain(
@@ -110,7 +110,7 @@ describe('OpsPage (E7)', () => {
   it('S2: export links point at the curl-able CSV endpoints', async () => {
     stubFetch({ boot: bootReport() });
     render(<OpsPage />);
-    await screen.findByText(/No backups yet|ynab-clone-backup/);
+    await screen.findByText(/No backups yet|tyche-backup/);
     expect(screen.getByRole('link', { name: 'Download register CSV' }).getAttribute('href')).toBe(
       '/api/export/register.csv',
     );

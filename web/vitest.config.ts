@@ -11,7 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       // Resolve the workspace package to TS source so tests don't require a prior build.
-      '@ynab-clone/shared': fileURLToPath(new URL('../shared/src/index.ts', import.meta.url)),
+      '@tyche/shared': fileURLToPath(new URL('../shared/src/index.ts', import.meta.url)),
     },
   },
   test: {

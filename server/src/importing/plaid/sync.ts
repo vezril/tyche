@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3';
-import { parseDollarsToMilliunits, milliunits, type Milliunits } from '@ynab-clone/shared';
+import { parseDollarsToMilliunits, milliunits, type Milliunits } from '@tyche/shared';
 import { deleteTransaction, setImportIdentity, updateTransaction } from '../../ledger/index.js';
 import { ImportError } from '../errors.js';
 import { runImport } from '../pipeline.js';

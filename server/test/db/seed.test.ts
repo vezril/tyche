@@ -19,7 +19,7 @@ describe('seedSystemCategories', () => {
   let db: BetterSqlite3.Database;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-seed-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-seed-'));
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
   });

@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import Database from 'better-sqlite3';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories, INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
@@ -47,7 +47,7 @@ describe('backup & restore (E7.S1)', () => {
   let backupsDir: string;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-e7-backup-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-e7-backup-'));
     backupsDir = join(dir, 'backups');
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
@@ -119,13 +119,13 @@ describe('backup & restore (E7.S1)', () => {
   it('AC-1: produces ONE timestamped .tar.gz containing the DB snapshot and a manifest', () => {
     seedData();
     const result = createBackup(db, { backupsDir, appVersion: '0.1.0' });
-    expect(result.name).toMatch(/^ynab-clone-backup-\d{8}T\d{6}Z\.tar\.gz$/);
+    expect(result.name).toMatch(/^tyche-backup-\d{8}T\d{6}Z\.tar\.gz$/);
     expect(readdirSync(backupsDir)).toEqual([result.name]);
 
     const listing = execFileSync('tar', ['-tzf', result.artifactPath]).toString().trim().split('\n').sort();
     expect(listing).toEqual([SNAPSHOT_FILE_NAME, MANIFEST_FILE_NAME].sort());
 
-    expect(result.manifest.format).toBe('ynab-clone-backup/1');
+    expect(result.manifest.format).toBe('tyche-backup/1');
     expect(result.manifest.appVersion).toBe('0.1.0');
     expect(result.manifest.masterKeyIncluded).toBe(false);
     expect(result.manifest.schemaMigrations).toContain('0001_init.sql');
@@ -136,7 +136,7 @@ describe('backup & restore (E7.S1)', () => {
   it('snapshot is taken online (VACUUM INTO) and passes integrity on its own', () => {
     seedData();
     const result = createBackup(db, { backupsDir });
-    const extract = mkdtempSync(join(tmpdir(), 'ynab-extract-'));
+    const extract = mkdtempSync(join(tmpdir(), 'tyche-extract-'));
     try {
       execFileSync('tar', ['-xzf', result.artifactPath, '-C', extract]);
       const snapshot = new Database(join(extract, SNAPSHOT_FILE_NAME), { readonly: true });
@@ -153,7 +153,7 @@ describe('backup & restore (E7.S1)', () => {
   it('AC-4 (NFR-3): no plaintext Plaid secret or access token anywhere in the artifact', () => {
     seedData();
     const result = createBackup(db, { backupsDir });
-    const extract = mkdtempSync(join(tmpdir(), 'ynab-extract-'));
+    const extract = mkdtempSync(join(tmpdir(), 'tyche-extract-'));
     try {
       execFileSync('tar', ['-xzf', result.artifactPath, '-C', extract]);
       // Raw bytes of the compressed artifact AND every extracted file.
@@ -190,7 +190,7 @@ describe('backup & restore (E7.S1)', () => {
     const artifact = createBackup(db, { backupsDir });
 
     // "Host B": a completely fresh location, same .env (MASTER_KEY).
-    const hostB = mkdtempSync(join(tmpdir(), 'ynab-host-b-'));
+    const hostB = mkdtempSync(join(tmpdir(), 'tyche-host-b-'));
     try {
       const restoredPath = join(hostB, 'data', 'app.db');
       restoreBackup(artifact.artifactPath, restoredPath);
@@ -225,7 +225,7 @@ describe('backup & restore (E7.S1)', () => {
     const before = accountBalances(db, chequingId);
     const artifact = createBackup(db, { backupsDir });
 
-    const hostB = mkdtempSync(join(tmpdir(), 'ynab-host-b-'));
+    const hostB = mkdtempSync(join(tmpdir(), 'tyche-host-b-'));
     try {
       const restoredPath = join(hostB, 'app.db');
       restoreBackup(artifact.artifactPath, restoredPath);
@@ -250,7 +250,7 @@ describe('backup & restore (E7.S1)', () => {
   it('restore keeps the previous database aside and clears stale WAL/SHM', () => {
     seedData();
     const artifact = createBackup(db, { backupsDir });
-    const targetDir = mkdtempSync(join(tmpdir(), 'ynab-target-'));
+    const targetDir = mkdtempSync(join(tmpdir(), 'tyche-target-'));
     try {
       const targetPath = join(targetDir, 'app.db');
       // An existing (different) database + stale WAL at the target.
@@ -285,14 +285,14 @@ describe('backup & restore (E7.S1)', () => {
       createBackup(db, { backupsDir, now: () => new Date(at) });
     }
     // A pre-migration safety backup and a hand-copied file are never reaped.
-    createBackup(db, { backupsDir, now: () => new Date('2026-05-01T01:00:00Z'), prefix: 'ynab-clone-pre-migration-' });
+    createBackup(db, { backupsDir, now: () => new Date('2026-05-01T01:00:00Z'), prefix: 'tyche-pre-migration-' });
     writeFileSync(join(backupsDir, 'manual-copy.tar.gz'), 'x');
 
     const pruned = pruneBackups(backupsDir, 2);
     expect(pruned).toEqual([`${BACKUP_PREFIX}20260601T010000Z.tar.gz`]);
     const remaining = readdirSync(backupsDir).sort();
     expect(remaining).toContain('manual-copy.tar.gz');
-    expect(remaining).toContain('ynab-clone-pre-migration-20260501T010000Z.tar.gz');
+    expect(remaining).toContain('tyche-pre-migration-20260501T010000Z.tar.gz');
     expect(remaining).toContain(`${BACKUP_PREFIX}20260602T010000Z.tar.gz`);
     expect(remaining).toContain(`${BACKUP_PREFIX}20260603T010000Z.tar.gz`);
     expect(remaining).not.toContain(`${BACKUP_PREFIX}20260601T010000Z.tar.gz`);
@@ -314,7 +314,7 @@ describe('backup & restore (E7.S1)', () => {
   it('manifest in the artifact matches the returned manifest', () => {
     seedData();
     const result = createBackup(db, { backupsDir, appVersion: '0.1.0' });
-    const extract = mkdtempSync(join(tmpdir(), 'ynab-extract-'));
+    const extract = mkdtempSync(join(tmpdir(), 'tyche-extract-'));
     try {
       execFileSync('tar', ['-xzf', result.artifactPath, '-C', extract]);
       const onDisk = JSON.parse(readFileSync(join(extract, MANIFEST_FILE_NAME), 'utf8')) as BackupManifest;

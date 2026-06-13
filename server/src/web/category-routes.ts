@@ -6,7 +6,7 @@ import type {
   CreateCategoryRequest,
   UpdateCategoryGroupRequest,
   UpdateCategoryRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   BudgetError,
   createCategory,

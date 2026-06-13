@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import type Database from 'better-sqlite3';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';

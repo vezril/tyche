@@ -4,7 +4,7 @@ import type {
   AccountsResponse,
   RegisterResponse,
   TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { createTestRig, type TestRig } from './helpers.js';
 
 // E2.S1 over HTTP: create / list / close / reopen accounts; on-budget vs

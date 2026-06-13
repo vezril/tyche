@@ -1,4 +1,4 @@
-# Feasibility Report: Plaid + RBC for a Self-Hosted YNAB Clone (June 2026)
+# Feasibility Report: Plaid + RBC for a Self-Hosted YNAB-Style Budgeting App (June 2026)
 
 ## Verdict: **FEASIBLE-WITH-CAVEATS**
 

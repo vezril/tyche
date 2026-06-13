@@ -19,7 +19,7 @@ import {
   type TransactionResponse,
   type UnmatchTransactionResponse,
   type UpdateTransactionRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { ApiError, apiGet, apiSend, apiUpload, describeError } from '../api.js';
 import { formatDollars } from './AccountsSidebar.js';
 

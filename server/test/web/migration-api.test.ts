@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { MigrationResponse } from '@ynab-clone/shared';
-import { CSRF_HEADER } from '@ynab-clone/shared';
+import type { MigrationResponse } from '@tyche/shared';
+import { CSRF_HEADER } from '@tyche/shared';
 import { createTestRig, type TestRig } from './helpers.js';
 
 /**
@@ -17,7 +17,7 @@ const FIXTURES = join(import.meta.dirname, '../migration/fixtures');
 const REGISTER = readFileSync(join(FIXTURES, 'register.csv'), 'utf8');
 const PLAN = readFileSync(join(FIXTURES, 'plan.csv'), 'utf8');
 
-const BOUNDARY = '----ynabMigrationBoundary7';
+const BOUNDARY = '----tycheMigrationBoundary7';
 
 function multipart(parts: { field: string; filename: string; content: string }[]): {
   payload: Buffer;

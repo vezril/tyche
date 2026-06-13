@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import { CSRF_HEADER, type BudgetCategoryMonth, type BudgetMonthResponse } from '@ynab-clone/shared';
+import { CSRF_HEADER, type BudgetCategoryMonth, type BudgetMonthResponse } from '@tyche/shared';
 import BudgetPage from '../src/pages/BudgetPage.js';
 import { currentMonth, nextMonth, prevMonth } from '../src/months.js';
 

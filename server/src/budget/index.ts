@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3';
-import type { CategorySummary } from '@ynab-clone/shared';
+import type { CategorySummary } from '@tyche/shared';
 
 /**
  * budget module (ADR-001): categories, groups, monthly assignments, RTA,

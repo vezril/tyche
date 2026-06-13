@@ -8,7 +8,7 @@ import type {
   ReviewQueueResponse,
   TransactionMutationResponse,
   UnmatchTransactionResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   accountBalances,
   approveTransaction,

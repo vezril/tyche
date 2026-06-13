@@ -6,7 +6,7 @@ import type {
   PayeesResponse,
   RegisterResponse,
   TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { createTestRig, type TestRig } from './helpers.js';
 
 // E2.S3 over HTTP: manual entry, editing, deletion; dollars-string parsing at

@@ -4,7 +4,7 @@ import type {
   ReconcileAccountResponse,
   RegisterResponse,
   TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { RECONCILIATION_ADJUSTMENT_CATEGORY_ID } from '../../src/db/seed.js';
 import { createTestRig, type TestRig } from './helpers.js';
 

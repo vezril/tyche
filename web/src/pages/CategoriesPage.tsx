@@ -3,7 +3,7 @@ import type {
   CategoryStructureResponse,
   ManagedCategory,
   ManagedCategoryGroup,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { ApiError, apiGet, apiSend, describeError } from '../api.js';
 
 /**

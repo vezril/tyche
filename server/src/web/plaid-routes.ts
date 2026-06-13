@@ -8,7 +8,7 @@ import type {
   PlaidLinkTokenResponse,
   PlaidSyncRunResponse,
   PutPlaidMappingsRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { getPlaidCredentialsStatus, getPlaidEnvironment, getPlaidSecret } from '../admin/plaid.js';
 import { getAccountRow } from '../ledger/index.js';
 import {

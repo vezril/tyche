@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type Database from 'better-sqlite3';
 import type { FastifyInstance } from 'fastify';
-import { CSRF_HEADER } from '@ynab-clone/shared';
+import { CSRF_HEADER } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories } from '../../src/db/seed.js';
@@ -26,7 +26,7 @@ describe('settings API (E1.S3)', () => {
   let clock: Date;
 
   beforeEach(async () => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-settings-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-settings-'));
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
     seedSystemCategories(db);

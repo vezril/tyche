@@ -14,7 +14,7 @@ describe('runMigrations (ordered SQL-file runner)', () => {
   let db: BetterSqlite3.Database;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-mig-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-mig-'));
     db = openDatabase(join(dir, 'app.db'));
   });
   afterEach(() => {
@@ -77,7 +77,7 @@ describe('real migrations (server/migrations)', () => {
   let db: BetterSqlite3.Database;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-real-mig-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-real-mig-'));
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db, MIGRATIONS_DIR);
   });

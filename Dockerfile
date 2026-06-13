@@ -44,10 +44,10 @@ COPY shared/package.json shared/package.json
 COPY --from=build /app/server/dist server/dist
 COPY --from=build /app/web/dist web/dist
 
-# The operator CLI (E7.S1, FR-35): `docker compose exec app ynab-clone backup`
-# and `ynab-clone restore <artifact>` — see the README ops guide.
-RUN printf '#!/bin/sh\nexec node /app/server/dist/cli.js "$@"\n' > /usr/local/bin/ynab-clone \
-  && chmod +x /usr/local/bin/ynab-clone
+# The operator CLI (E7.S1, FR-35): `docker compose exec app tyche backup`
+# and `tyche restore <artifact>` — see the README ops guide.
+RUN printf '#!/bin/sh\nexec node /app/server/dist/cli.js "$@"\n' > /usr/local/bin/tyche \
+  && chmod +x /usr/local/bin/tyche
 
 # SQLite lives on the named volume (ADR-003); created/migrated at boot (AC-2).
 # data/backups/ on the same volume holds the E7.S1 artifacts.

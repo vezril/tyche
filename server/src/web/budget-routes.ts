@@ -5,7 +5,7 @@ import {
   type BudgetMonthResponse,
   type MoveMoneyRequest,
   type PutAssignmentRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   BudgetError,
   getBudgetMonth,

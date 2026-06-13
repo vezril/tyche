@@ -1,4 +1,4 @@
-import { CSRF_HEADER, formatMilliunits, milliunits } from '@ynab-clone/shared';
+import { CSRF_HEADER, formatMilliunits, milliunits } from '@tyche/shared';
 
 /**
  * Tiny typed fetch layer (ADR-008). Every mutation carries the CSRF header;

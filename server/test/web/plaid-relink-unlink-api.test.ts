@@ -5,7 +5,7 @@ import type {
   PlaidItemsResponse,
   PlaidLinkTokenResponse,
   RegisterResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { loadMasterKey } from '../../src/crypto/index.js';
 import {
   PlaidApiError,

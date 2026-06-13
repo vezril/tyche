@@ -1,7 +1,7 @@
 schema: spec-driven
 
 context: |
-  Self-hosted, single-user YNAB clone (envelope/zero-based budgeting, CAD-only,
+  Tyche — a self-hosted, single-user YNAB-style budgeting app (envelope/zero-based, CAD-only,
   cash accounts only) with RBC bank sync via Plaid (Trial plan, 6h polling, no
   webhooks) and OFX/CSV import fallback.
   Stack (ADR-002): TypeScript end-to-end — Node 22 + Fastify + better-sqlite3

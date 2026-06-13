@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type Database from 'better-sqlite3';
-import { milliunits, parseDollarsToMilliunits } from '@ynab-clone/shared';
+import { milliunits, parseDollarsToMilliunits } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories, INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
@@ -76,7 +76,7 @@ describe('CSV export (E7.S2, FR-36)', () => {
   let db: Database.Database;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-e7-export-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-e7-export-'));
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
     seedSystemCategories(db);

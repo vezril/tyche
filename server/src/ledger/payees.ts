@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type Database from 'better-sqlite3';
-import type { PayeeResponse } from '@ynab-clone/shared';
+import type { PayeeResponse } from '@tyche/shared';
 
 /**
  * Payees (FR-19): the list is built as a side effect of transaction entry and

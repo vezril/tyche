@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { CSRF_HEADER, type MigrationResponse } from '@ynab-clone/shared';
+import { CSRF_HEADER, type MigrationResponse } from '@tyche/shared';
 import { MigrationPage } from '../src/pages/MigrationPage.js';
 
 /**

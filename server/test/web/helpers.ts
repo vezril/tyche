@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import type Database from 'better-sqlite3';
 import type { FastifyInstance, InjectOptions } from 'fastify';
 import type { LightMyRequestResponse } from 'light-my-request';
-import { CSRF_HEADER } from '@ynab-clone/shared';
+import { CSRF_HEADER } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories } from '../../src/db/seed.js';
@@ -31,7 +31,7 @@ export interface TestRig {
 export type TestRigOptions = Partial<Omit<AppOptions, 'db' | 'version'>>;
 
 export async function createTestRig(options: TestRigOptions = {}): Promise<TestRig> {
-  const dir = mkdtempSync(join(tmpdir(), 'ynab-e2-'));
+  const dir = mkdtempSync(join(tmpdir(), 'tyche-e2-'));
   const db = openDatabase(join(dir, 'app.db'));
   runMigrations(db);
   seedSystemCategories(db);

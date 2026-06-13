@@ -73,7 +73,7 @@ The Plaid backend of the importer port: call `/transactions/sync` with the Item'
   ConnectionsPage button); upstream `PlaidApiError` → 502 `plaid_api_error` + plaidCode;
   not-ACTIVE → 409; unknown Item → 404.
 - **Sandbox**: suite is fully offline (fake `PlaidClientPort`); manual verification via
-  `npm run sync:sandbox -w @ynab-clone/server` (README "Plaid sandbox").
+  `npm run sync:sandbox -w @tyche/server` (README "Plaid sandbox").
 - **For S3 (scheduler)**: call `syncPlaidItem(db, masterKey, client, itemId)` per ACTIVE
   Item — same code path as manual sync; it throws on failure AND logs to
   `plaid_sync_log`, so the scheduler only needs catch-and-continue. **For S4**: a failed

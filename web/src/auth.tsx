@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { CSRF_HEADER, type AuthStatusResponse } from '@ynab-clone/shared';
+import { CSRF_HEADER, type AuthStatusResponse } from '@tyche/shared';
 
 /**
  * Auth context + route guard for the SPA (E1.S2, AC-2).

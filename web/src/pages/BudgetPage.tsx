@@ -7,7 +7,7 @@ import {
   type BudgetMonthResponse,
   type MoveMoneyRequest,
   type PutAssignmentRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { apiGet, apiSend, describeError } from '../api.js';
 import { formatDollars } from './AccountsSidebar.js';
 import { clampMonth, currentMonth, isValidMonth, monthLabel, nextMonth, prevMonth } from '../months.js';

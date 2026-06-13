@@ -24,7 +24,7 @@ export interface PutSettingRequest {
  * cross-site form/image requests, so its presence proves a same-origin
  * scripted call. The value is irrelevant; presence is the check.
  */
-export const CSRF_HEADER = 'x-ynab-csrf';
+export const CSRF_HEADER = 'x-tyche-csrf';
 
 /** Session cookie name (opaque server-side session id, ADR-008). */
 export const SESSION_COOKIE = 'sid';

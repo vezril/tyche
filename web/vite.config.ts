@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@ynab-clone/shared': fileURLToPath(new URL('../shared/src/index.ts', import.meta.url)),
+      '@tyche/shared': fileURLToPath(new URL('../shared/src/index.ts', import.meta.url)),
     },
   },
   server: {

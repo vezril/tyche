@@ -13,7 +13,7 @@ import {
   type RegisterResponse,
   type ReviewQueueResponse,
   type TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { loadMasterKey } from '../../src/crypto/index.js';
 import { runConsistencyCheck } from '../../src/budget/index.js';
 import { INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
@@ -436,7 +436,7 @@ describe('PROBE 4: backup → restore → consistency + identical budget values 
     // Backup (E7) → restore onto a fresh "host B" location.
     const backupsDir = join(rig.dir, 'backups');
     const artifact = createBackup(rig.db, { backupsDir, appVersion: '0.1.0-test' });
-    const hostB = mkdtempSync(join(tmpdir(), 'ynab-e2e-hostb-'));
+    const hostB = mkdtempSync(join(tmpdir(), 'tyche-e2e-hostb-'));
     try {
       const restoredPath = join(hostB, 'data', 'app.db');
       restoreBackup(artifact.artifactPath, restoredPath);
@@ -559,7 +559,7 @@ describe('PROBE 5: sync breaks (ITEM_LOGIN_REQUIRED) → relink → resume, budg
 
 // --- multipart helper (mirrors server/test/web/import-api.test.ts) ------------
 
-const BOUNDARY = '----ynabE2EBoundary';
+const BOUNDARY = '----tycheE2EBoundary';
 function multipart(filename: string, content: string): { payload: Buffer; headers: Record<string, string> } {
   return {
     payload: Buffer.from(

@@ -8,7 +8,7 @@ import type {
   PlaidItemResponse,
   PlaidItemsResponse,
   ReviewQueueResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { apiGet } from './api.js';
 import { RequireAuth, useAuth } from './auth.js';
 import { LoginPage } from './pages/LoginPage.js';
@@ -113,7 +113,7 @@ export function Shell(): React.JSX.Element {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>ynab-clone</h1>
+        <h1>Tyche</h1>
         <nav className="app-nav" aria-label="Main">
           <button
             type="button"

@@ -6,7 +6,7 @@ import type {
   CategoryStructureResponse,
   PayeesResponse,
   RegisterResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   INFLOW_READY_TO_ASSIGN_CATEGORY_ID,
   RECONCILIATION_ADJUSTMENT_CATEGORY_ID,

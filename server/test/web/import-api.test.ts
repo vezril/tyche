@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { CSRF_HEADER } from '@ynab-clone/shared';
+import { CSRF_HEADER } from '@tyche/shared';
 import type {
   AccountResponse,
   ImportFileResponse,
@@ -12,7 +12,7 @@ import type {
   TransactionMutationResponse,
   TransactionResponse,
   UnmatchTransactionResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { createTestRig, type TestRig } from './helpers.js';
 
 /**
@@ -25,7 +25,7 @@ import { createTestRig, type TestRig } from './helpers.js';
 const OFX = readFileSync(join(import.meta.dirname, '../importing/fixtures/rbc-chequing.ofx'), 'utf8');
 const CSV = readFileSync(join(import.meta.dirname, '../importing/fixtures/rbc-chequing.csv'), 'utf8');
 
-const BOUNDARY = '----ynabTestBoundary42';
+const BOUNDARY = '----tycheTestBoundary42';
 
 function multipart(filename: string, content: string): {
   payload: Buffer;

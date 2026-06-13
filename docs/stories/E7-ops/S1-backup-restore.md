@@ -12,8 +12,8 @@ Backup = SQLite `VACUUM INTO` snapshot (consistent, safe while the app runs) + s
 
 ## Acceptance Criteria
 
-- **AC-1** Given the running app, when `docker compose exec app ynab-clone backup` is run, then a single timestamped `.tar.gz` appears in `data/backups/` containing a consistent DB snapshot and settings manifest. *(FR-35)*
-- **AC-2** Given a backup from host A, when `ynab-clone restore <artifact>` runs on host B (app stopped) with the same `.env`, then a scripted comparison shows identical balances, RTA, and transaction counts, and Plaid syncing resumes. *(FR-35, NFR-7)*
+- **AC-1** Given the running app, when `docker compose exec app tyche backup` is run, then a single timestamped `.tar.gz` appears in `data/backups/` containing a consistent DB snapshot and settings manifest. *(FR-35)*
+- **AC-2** Given a backup from host A, when `tyche restore <artifact>` runs on host B (app stopped) with the same `.env`, then a scripted comparison shows identical balances, RTA, and transaction counts, and Plaid syncing resumes. *(FR-35, NFR-7)*
 - **AC-3** Given a restore on a host **without** the original `MASTER_KEY`, then all transactions and budget state are intact and the app starts; bank connections show as needing re-link — nothing worse. *(FR-35, ADR-007)*
 - **AC-4** Given the backup artifact, when grepped, then no plaintext Plaid token or client secret is present. *(NFR-3)*
 - **AC-5** Given a daily schedule (in-app daily job or documented host cron), then backups are produced automatically, satisfying RPO ≤ 24 h, with simple retention (e.g., keep N most recent). *(NFR-7)*
@@ -40,15 +40,15 @@ Backup = SQLite `VACUUM INTO` snapshot (consistent, safe while the app runs) + s
 - **Mechanism (AC-1):** `server/src/admin/backup.ts` — `VACUUM INTO` snapshot
   (online, point-in-time) + `manifest.json` (format tag, app version, applied
   migrations, non-secret settings, counts, explicit `masterKeyIncluded: false`)
-  packed via system `tar` into ONE `ynab-clone-backup-<UTC>.tar.gz` in
+  packed via system `tar` into ONE `tyche-backup-<UTC>.tar.gz` in
   `data/backups/`. CLI is `server/src/cli.ts`, installed in the image as
-  `/usr/local/bin/ynab-clone` (Dockerfile shim) so AC-1's exact command works:
-  `docker compose exec app ynab-clone backup`. Also `POST /api/admin/backup` +
+  `/usr/local/bin/tyche` (Dockerfile shim) so AC-1's exact command works:
+  `docker compose exec app tyche backup`. Also `POST /api/admin/backup` +
   Ops-screen button and artifact list.
-- **Restore (AC-2):** `ynab-clone restore <artifact>` (stopped app) — extracts,
+- **Restore (AC-2):** `tyche restore <artifact>` (stopped app) — extracts,
   verifies SQLite `integrity_check`, swaps in (old DB kept aside as
   `.replaced-<ts>`, stale WAL/SHM removed), prints a post-restore summary.
-  FR-35's scripted comparison is `ynab-clone summary` (canonical JSON:
+  FR-35's scripted comparison is `tyche summary` (canonical JSON:
   per-account working/cleared, latest-month RTA, transaction count,
   consistency verdict) — diff host A vs host B. AUTOMATED in
   test/admin/backup.test.ts (round-trip equality of balances/RTA/counts +
@@ -64,7 +64,7 @@ Backup = SQLite `VACUUM INTO` snapshot (consistent, safe while the app runs) + s
   ciphertext envelope present and decryptable (test).
 - **AC-5:** in-app daily job `server/src/web/backup-scheduler.ts` (mirrors the
   E5.S3 timer-loop: last-run stamp in settings, claim-before-work, fake-clock
-  tests), keep-14 retention over `ynab-clone-backup-*` only — pre-migration
+  tests), keep-14 retention over `tyche-backup-*` only — pre-migration
   artifacts and hand-copies are never reaped.
 - **AC-6:** procedure documented in README (backup/restore/drill, incl. the
   one-line "back up `.env` separately"); local drill ran in well under a

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { formatMilliunits, milliunits, type MigrationResponse } from '@ynab-clone/shared';
+import { formatMilliunits, milliunits, type MigrationResponse } from '@tyche/shared';
 import { apiUploadFiles, describeError } from '../api.js';
 
 /**

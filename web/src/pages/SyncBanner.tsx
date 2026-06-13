@@ -1,4 +1,4 @@
-import type { PlaidItemResponse } from '@ynab-clone/shared';
+import type { PlaidItemResponse } from '@tyche/shared';
 
 /**
  * App-wide broken-connection banner (E5.S4 AC-1/AC-5, FR-26): rendered by the

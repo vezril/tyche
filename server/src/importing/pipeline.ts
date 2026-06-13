@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type Database from 'better-sqlite3';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import {
   createTransaction,
   getAccountRow,

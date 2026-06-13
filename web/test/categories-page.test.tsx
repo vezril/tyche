@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import { CSRF_HEADER, type CategoryStructureResponse } from '@ynab-clone/shared';
+import { CSRF_HEADER, type CategoryStructureResponse } from '@tyche/shared';
 import { CategoriesPage } from '../src/pages/CategoriesPage.js';
 
 /**

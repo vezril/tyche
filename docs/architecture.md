@@ -1,4 +1,4 @@
-# Architecture: Self-Hosted YNAB Clone
+# Architecture: Tyche — a Self-Hosted YNAB-Style Budgeting App
 
 | | |
 |---|---|
@@ -53,19 +53,19 @@ Rule: `importing` writes to `ledger` only through the same command interface the
 
 ```mermaid
 C4Context
-  title System Context — ynab-clone
+  title System Context — Tyche
   Person(calvin, "Calvin", "Single user. Browser on desktop + phone, over LAN or personal VPN (Tailscale). (AS-2, AS-3)")
-  System(ynab_clone, "ynab-clone", "Self-hosted envelope-budgeting app: month grid, register, bank sync, migration, backup.")
+  System(tyche, "Tyche", "Self-hosted envelope-budgeting app: month grid, register, bank sync, migration, backup.")
   System_Ext(plaid, "Plaid API", "Trial plan. Outbound-only: link tokens, token exchange, /transactions/sync polling. Hosts the Link widget JS (browser-loaded during link flows only — NFR-2 exception).")
   System_Ext(rbc, "RBC", "Bank. Reached only via Plaid; also the source of manually exported OFX/QFX/CSV files (FR-24).")
   System_Ext(ynab, "YNAB export/API", "One-time migration source (FR-30).")
 
-  Rel(calvin, ynab_clone, "Budgets, reviews, reconciles", "HTTPS/HTTP over LAN/VPN")
-  Rel(ynab_clone, plaid, "Polls /transactions/sync every 6 h; link/exchange calls", "HTTPS outbound only")
+  Rel(calvin, tyche, "Budgets, reviews, reconciles", "HTTPS/HTTP over LAN/VPN")
+  Rel(tyche, plaid, "Polls /transactions/sync every 6 h; link/exchange calls", "HTTPS outbound only")
   Rel(plaid, rbc, "Proprietary API/token access")
   Rel(calvin, rbc, "Downloads OFX/CSV when sync is broken (UJ-6)")
-  Rel(calvin, ynab_clone, "Uploads OFX/CSV / YNAB export files")
-  Rel(ynab, ynab_clone, "Migration import, once")
+  Rel(calvin, tyche, "Uploads OFX/CSV / YNAB export files")
+  Rel(ynab, tyche, "Migration import, once")
 ```
 
 No inbound connections from the internet — polling only (NFR-4, AS-7); no webhook endpoint exists.
@@ -74,7 +74,7 @@ No inbound connections from the internet — polling only (NFR-4, AS-7); no webh
 
 ```mermaid
 C4Container
-  title Container view — ynab-clone (single compose service + volume)
+  title Container view — Tyche (single compose service + volume)
   Person(calvin, "Calvin")
   System_Boundary(host, "Home server — docker compose") {
     Container(spa, "Web UI", "React + TypeScript SPA (Vite build)", "Month grid, register, review queue, reconcile, settings. All assets self-hosted from the app container (NFR-2). Runs in Calvin's browser.")
@@ -174,7 +174,7 @@ Plaid `access_token`s and the Plaid client secret are encrypted with **AES-256-G
 # docker-compose.yml (shape, not final)
 services:
   app:
-    image: ghcr.io/cference/ynab-clone:${VERSION:-latest}
+    image: ghcr.io/cference/tyche:${VERSION:-latest}
     ports: ["8080:8080"]          # LAN only; no port-forwarding
     env_file: .env                # MASTER_KEY, PLAID_CLIENT_ID/SECRET (or set via UI), TZ
     volumes: ["data:/data"]       # data/app.db (+WAL), data/backups/
@@ -184,7 +184,7 @@ volumes:
 ```
 
 - **Boot sequence:** run pending schema migrations (forward-only, versioned) → integrity/consistency check → start HTTP + scheduler. NFR-11's "never silently alters historical balances" is enforced by a balance checksum recorded before and verified after every migration.
-- **Backup (FR-35):** `docker compose exec app ynab-clone backup` → SQLite `VACUUM INTO` snapshot + settings manifest, packed into one timestamped `.tar.gz` in `data/backups/` — a single artifact, one command, safe while the app runs. **Restore:** `ynab-clone restore <artifact>` on a stopped app. Off-host copying is Calvin's job pending OQ-7 (NFR-2 constrains any built-in push anyway). Daily backup = host cron or the in-app scheduler's daily job (RPO ≤ 24 h).
+- **Backup (FR-35):** `docker compose exec app tyche backup` → SQLite `VACUUM INTO` snapshot + settings manifest, packed into one timestamped `.tar.gz` in `data/backups/` — a single artifact, one command, safe while the app runs. **Restore:** `tyche restore <artifact>` on a stopped app. Off-host copying is Calvin's job pending OQ-7 (NFR-2 constrains any built-in push anyway). Daily backup = host cron or the in-app scheduler's daily job (RPO ≤ 24 h).
 - **Durability:** WAL mode with `synchronous=FULL` — an acknowledged commit survives kill -9 and power loss (NFR-7). Cost is per-commit fsync, irrelevant at single-user write rates.
 - **Upgrade:** `docker compose pull && docker compose up -d`; image entrypoint takes an automatic pre-migration backup first.
 

@@ -35,7 +35,7 @@ jobs:
       - uses: docker/metadata-action@v5
         id: meta
         with:
-          images: ghcr.io/cference/ynab-clone
+          images: ghcr.io/cference/tyche
           tags: |
             type=semver,pattern={{version}}
             type=raw,value=latest

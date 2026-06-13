@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type Database from 'better-sqlite3';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories, INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
@@ -22,7 +22,7 @@ describe('budget consistency check (AC-6, NFR-12)', () => {
   let db: Database.Database;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-e3-consistency-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-e3-consistency-'));
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
     seedSystemCategories(db);

@@ -3,7 +3,7 @@ import type {
   AccountResponse,
   BudgetMonthResponse,
   TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
 import { createTestRig, type TestRig } from './helpers.js';
 

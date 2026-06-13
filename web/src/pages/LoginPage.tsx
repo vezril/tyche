@@ -23,7 +23,7 @@ export function LoginPage(): React.JSX.Element {
 
   return (
     <main className="shell">
-      <h1>ynab-clone</h1>
+      <h1>Tyche</h1>
       <form onSubmit={onSubmit} className="auth-form">
         <label>
           Password

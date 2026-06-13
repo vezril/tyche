@@ -8,7 +8,7 @@ import type {
   ReviewQueueResponse,
   TransactionMutationResponse,
   UnmatchTransactionResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { apiGet, apiSend, describeError } from '../api.js';
 import { formatDollars } from './AccountsSidebar.js';
 

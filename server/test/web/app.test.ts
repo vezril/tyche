@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { CSRF_HEADER } from '@ynab-clone/shared';
+import { CSRF_HEADER } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories } from '../../src/db/seed.js';
@@ -19,7 +19,7 @@ describe('web app', () => {
   let authed: { cookie: string; [CSRF_HEADER]: string };
 
   beforeEach(async () => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-app-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-app-'));
     const db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
     seedSystemCategories(db);

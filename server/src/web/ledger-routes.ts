@@ -18,7 +18,7 @@ import {
   type TransactionMutationResponse,
   type UpdateAccountRequest,
   type UpdateTransactionRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   accountBalances,
   createAccount,

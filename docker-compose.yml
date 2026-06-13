@@ -2,7 +2,7 @@
 # ONE app container + a named volume for SQLite (ADR-001, ADR-003).
 services:
   app:
-    image: ghcr.io/cference/ynab-clone:${VERSION:-latest}
+    image: ghcr.io/cference/tyche:${VERSION:-latest}
     build: .
     ports:
       # LAN only; no port-forwarding, no inbound URL (NFR-4/5). PORT from .env

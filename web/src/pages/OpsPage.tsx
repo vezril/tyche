@@ -5,7 +5,7 @@ import type {
   BackupsResponse,
   BootConsistencyResponse,
   ConsistencyCheckResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { apiGet, apiSend, describeError } from '../api.js';
 
 /**

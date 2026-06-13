@@ -33,7 +33,7 @@ describe('budget engine performance at the PRD ceiling (AC-7, NFR-1)', () => {
   let db: Database.Database;
 
   beforeAll(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-e3-perf-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-e3-perf-'));
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);
     seedSystemCategories(db);

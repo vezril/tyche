@@ -33,7 +33,7 @@ export function SetupPage(): React.JSX.Element {
 
   return (
     <main className="shell">
-      <h1>ynab-clone</h1>
+      <h1>Tyche</h1>
       <p>First-run setup: choose the password that will protect your budget.</p>
       <form onSubmit={onSubmit} className="auth-form">
         <label>

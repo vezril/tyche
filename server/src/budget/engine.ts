@@ -1,4 +1,4 @@
-import { milliunits, type Milliunits } from '@ynab-clone/shared';
+import { milliunits, type Milliunits } from '@tyche/shared';
 import { earlierMonth, monthRange } from './month.js';
 
 /**

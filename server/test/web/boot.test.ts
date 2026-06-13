@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type Database from 'better-sqlite3';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import { openDatabase } from '../../src/db/connection.js';
 import { MIGRATIONS_DIR, runMigrations } from '../../src/db/migrate.js';
 import { seedSystemCategories, INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
@@ -24,7 +24,7 @@ describe('startup sequence: migrate bracket + consistency (E7.S3/S4)', () => {
   let backupsDir: string;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-e7-boot-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-e7-boot-'));
     backupsDir = join(dir, 'backups');
     db = openDatabase(join(dir, 'app.db'));
   });

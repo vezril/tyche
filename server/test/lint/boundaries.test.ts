@@ -94,7 +94,7 @@ describe('module boundaries (ADR-001)', () => {
 
   it('budget importing shared types is allowed', async () => {
     const ruleIds = await ruleIdsFor(
-      "import type { Milliunits } from '@ynab-clone/shared';\nexport type X = Milliunits;\n",
+      "import type { Milliunits } from '@tyche/shared';\nexport type X = Milliunits;\n",
       'server/src/budget/allowed.ts',
     );
     expect(ruleIds).not.toContain('no-restricted-imports');

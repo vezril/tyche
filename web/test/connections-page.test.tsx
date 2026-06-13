@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { CSRF_HEADER, type AccountResponse, type PlaidItemResponse } from '@ynab-clone/shared';
+import { CSRF_HEADER, type AccountResponse, type PlaidItemResponse } from '@tyche/shared';
 import { ConnectionsPage } from '../src/pages/ConnectionsPage.js';
 import type { PlaidLinkCreateOptions, PlaidLinkGlobal } from '../src/pages/plaid-link.js';
 

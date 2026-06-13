@@ -1,4 +1,4 @@
-import type { Milliunits } from '@ynab-clone/shared';
+import type { Milliunits } from '@tyche/shared';
 
 /**
  * The importer port (ADR-006): every backend — file upload (E4, this epic),

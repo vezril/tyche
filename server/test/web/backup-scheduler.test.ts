@@ -22,7 +22,7 @@ describe('daily backup scheduler (E7.S1 AC-5)', () => {
   let clock: Date;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'ynab-e7-sched-'));
+    dir = mkdtempSync(join(tmpdir(), 'tyche-e7-sched-'));
     backupsDir = join(dir, 'backups');
     db = openDatabase(join(dir, 'app.db'));
     runMigrations(db);

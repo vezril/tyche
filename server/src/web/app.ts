@@ -22,7 +22,7 @@ import {
   type SettingsResponse,
   type SetupRequest,
   type VersionResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   getPollingIntervalHours,
   getSetting,
@@ -59,7 +59,7 @@ import { registerPlaidRoutes } from './plaid-routes.js';
 import { registerAdminRoutes } from './admin-routes.js';
 import type { PlaidSyncGate } from './plaid-scheduler.js';
 import type { PlaidClientFactory } from '../importing/index.js';
-import type { ConsistencyCheckResponse } from '@ynab-clone/shared';
+import type { ConsistencyCheckResponse } from '@tyche/shared';
 
 /**
  * web module (ADR-001): the HTTP layer. REST routes under /api plus, in

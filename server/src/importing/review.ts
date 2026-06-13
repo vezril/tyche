@@ -1,10 +1,10 @@
 import type Database from 'better-sqlite3';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import type {
   ReviewItemResponse,
   ReviewMatchInfo,
   TransactionResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   createTransaction,
   deleteTransaction,

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type Database from 'better-sqlite3';
-import { milliunits, type AccountType, type Milliunits } from '@ynab-clone/shared';
+import { milliunits, type AccountType, type Milliunits } from '@tyche/shared';
 import { INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../db/seed.js';
 import { assertValidIsoDate, LedgerError } from './errors.js';
 import { getOrCreatePayee, recordPayeeCategory } from './payees.js';

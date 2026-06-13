@@ -3,7 +3,7 @@ import type {
   BudgetCategoryMonth,
   BudgetGroupMonth,
   BudgetMonthResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { BudgetError } from './errors.js';
 import { computeBudget } from './engine.js';
 import { earlierMonth, isValidMonth, laterMonth, monthOfDate, nextMonth } from './month.js';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { milliunits, type Milliunits } from '@ynab-clone/shared';
+import { milliunits, type Milliunits } from '@tyche/shared';
 import {
   categoryMonthKey,
   computeBudget,

@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { milliunits } from '@ynab-clone/shared';
+import { milliunits } from '@tyche/shared';
 import type {
   AccountResponse,
   RegisterResponse,
   TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { createTransaction } from '../../src/ledger/index.js';
 import { createTestRig, type TestRig } from './helpers.js';
 

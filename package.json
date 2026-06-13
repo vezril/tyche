@@ -1,8 +1,8 @@
 {
-  "name": "ynab-clone",
+  "name": "tyche",
   "version": "0.1.0",
   "private": true,
-  "description": "Self-hosted single-user envelope-budgeting app (YNAB clone). Modular monolith per ADR-001.",
+  "description": "Tyche — a self-hosted single-user YNAB-style envelope-budgeting app. Modular monolith per ADR-001.",
   "license": "UNLICENSED",
   "type": "module",
   "engines": {
@@ -14,9 +14,9 @@
     "web"
   ],
   "scripts": {
-    "build": "npm run build -w @ynab-clone/shared && npm run build -w @ynab-clone/server && npm run build -w @ynab-clone/web",
-    "dev": "npm run dev -w @ynab-clone/server & npm run dev -w @ynab-clone/web & wait",
-    "test": "npm run test -w @ynab-clone/shared && npm run test -w @ynab-clone/server && npm run test -w @ynab-clone/web",
+    "build": "npm run build -w @tyche/shared && npm run build -w @tyche/server && npm run build -w @tyche/web",
+    "dev": "npm run dev -w @tyche/server & npm run dev -w @tyche/web & wait",
+    "test": "npm run test -w @tyche/shared && npm run test -w @tyche/server && npm run test -w @tyche/web",
     "lint": "eslint .",
     "typecheck": "tsc -b shared server web"
   },

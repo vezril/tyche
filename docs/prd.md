@@ -1,4 +1,4 @@
-# PRD: Self-Hosted YNAB Replacement ("ynab-clone")
+# PRD: Self-Hosted YNAB Replacement ("Tyche")
 
 | | |
 |---|---|

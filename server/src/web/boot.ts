@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3';
-import type { ConsistencyCheckResponse } from '@ynab-clone/shared';
+import type { ConsistencyCheckResponse } from '@tyche/shared';
 import { createBackup, type BackupResult } from '../admin/backup.js';
 import { computeBalanceChecksum } from '../admin/checksum.js';
 import { listPendingMigrations, MIGRATIONS_DIR, runMigrations } from '../db/migrate.js';
@@ -21,7 +21,7 @@ import { checkConsistency } from './admin-routes.js';
  *      data is readable and the user must be able to see the report.
  */
 
-export const PRE_MIGRATION_BACKUP_PREFIX = 'ynab-clone-pre-migration-';
+export const PRE_MIGRATION_BACKUP_PREFIX = 'tyche-pre-migration-';
 
 interface BootLogger {
   info(obj: Record<string, unknown>, msg: string): void;

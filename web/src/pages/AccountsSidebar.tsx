@@ -5,7 +5,7 @@ import {
   type AccountResponse,
   type AccountType,
   type CreateAccountRequest,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { apiSend, describeError } from '../api.js';
 
 /**

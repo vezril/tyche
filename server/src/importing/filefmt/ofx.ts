@@ -1,4 +1,4 @@
-import { parseDollarsToMilliunits } from '@ynab-clone/shared';
+import { parseDollarsToMilliunits } from '@tyche/shared';
 import type { ImportRowIssue, ParsedImport, StagedTransaction } from '../port.js';
 
 /**

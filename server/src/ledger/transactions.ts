@@ -6,8 +6,8 @@ import type {
   TransactionResponse,
   TransactionSource,
   TransactionStatus,
-} from '@ynab-clone/shared';
-import { milliunits } from '@ynab-clone/shared';
+} from '@tyche/shared';
+import { milliunits } from '@tyche/shared';
 import { getAccountRow, type Account } from './accounts.js';
 import { assertValidIsoDate, LedgerError } from './errors.js';
 import { getOrCreatePayee, recordPayeeCategory } from './payees.js';

@@ -7,7 +7,7 @@ import type {
   PlaidLinkTokenResponse,
   PlaidSyncRunResponse,
   SettingsResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { apiGet, apiSend, describeError } from '../api.js';
 import { loadPlaidLink, type PlaidLinkLoader } from './plaid-link.js';
 

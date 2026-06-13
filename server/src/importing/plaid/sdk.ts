@@ -11,7 +11,7 @@ import {
  * The ONE real PlaidClientPort implementation, wrapping the official `plaid`
  * SDK (ADR-002). Never constructed by the test suite — tests inject a fake at
  * the PlaidClientPort seam; this adapter is exercised manually against the
- * Plaid sandbox (`npm run sync:sandbox -w @ynab-clone/server`, see README).
+ * Plaid sandbox (`npm run sync:sandbox -w @tyche/server`, see README).
  *
  * Credentials arrive pre-resolved from the web layer (admin/plaid.ts owns
  * them; importing may not import admin per ADR-001).
@@ -80,10 +80,10 @@ export const createPlaidSdkClient: PlaidClientFactory = (credentials) => {
     async createLinkToken(): Promise<string> {
       try {
         const res = await api.linkTokenCreate({
-          client_name: 'ynab-clone',
+          client_name: 'Tyche',
           language: 'en',
           country_codes: ['CA' as CountryCode],
-          user: { client_user_id: 'ynab-clone-single-user' }, // single-user app (AS-3)
+          user: { client_user_id: 'tyche-single-user' }, // single-user app (AS-3)
           products: ['transactions' as Products],
         });
         return res.data.link_token;
@@ -98,10 +98,10 @@ export const createPlaidSdkClient: PlaidClientFactory = (credentials) => {
         // Item to re-authenticate; `products` is omitted per Plaid's
         // update-mode docs — same Item, cursor and mappings preserved.
         const res = await api.linkTokenCreate({
-          client_name: 'ynab-clone',
+          client_name: 'Tyche',
           language: 'en',
           country_codes: ['CA' as CountryCode],
-          user: { client_user_id: 'ynab-clone-single-user' },
+          user: { client_user_id: 'tyche-single-user' },
           access_token: accessToken,
         });
         return res.data.link_token;

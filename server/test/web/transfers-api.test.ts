@@ -5,7 +5,7 @@ import type {
   PayeesResponse,
   RegisterResponse,
   TransactionMutationResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { createTestRig, type TestRig } from './helpers.js';
 
 // E2.S5 over HTTP: transfers as two rows sharing a transfer_id (FR-16) —

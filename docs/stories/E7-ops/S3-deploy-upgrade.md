@@ -8,7 +8,7 @@ As Calvin (operator), I want a documented, ≤ 30-minute first-run setup and a `
 
 ## Context
 
-Hardens the E1.S1 skeleton into the shippable operational envelope: published image (`ghcr.io/cference/ynab-clone`), final compose file, first-run documentation, self-recovery, and the migration-safety bracket (pre-migration auto-backup + balance checksum before/after). This story is mostly verification and documentation of NFR-5/6/8/11 — the behaviors are spread across earlier stories; here they are proven end to end.
+Hardens the E1.S1 skeleton into the shippable operational envelope: published image (`ghcr.io/cference/tyche`), final compose file, first-run documentation, self-recovery, and the migration-safety bracket (pre-migration auto-backup + balance checksum before/after). This story is mostly verification and documentation of NFR-5/6/8/11 — the behaviors are spread across earlier stories; here they are proven end to end.
 
 ## Acceptance Criteria
 
@@ -41,7 +41,7 @@ Hardens the E1.S1 skeleton into the shippable operational envelope: published im
   used by index.ts and tested in isolation): bracket(migrate) → seed →
   NFR-12 consistency check → serve → schedulers (Plaid poll + daily backup).
 - **AC-3 (NFR-11 bracket):** pending migrations on existing data trigger an
-  automatic pre-migration backup (`ynab-clone-pre-migration-*.tar.gz`, exempt
+  automatic pre-migration backup (`tyche-pre-migration-*.tar.gz`, exempt
   from retention) and a balance checksum (`server/src/admin/checksum.ts`:
   per-account working/cleared sums + row counts + total assignments, canonical
   JSON) recorded before and verified after; mismatch throws and index.ts exits
@@ -63,12 +63,12 @@ Hardens the E1.S1 skeleton into the shippable operational envelope: published im
   (documented, not shipped).
 - **Image publish:** `.github/workflows/publish.yml` — tag `v*` → lint +
   typecheck + full suite gate → buildx multi-arch (amd64/arm64) push to
-  `ghcr.io/cference/ynab-clone` (AS-8).
+  `ghcr.io/cference/tyche` (AS-8).
 - **NOT verifiable here (Docker daemon unavailable on this dev machine):**
   `docker compose build && docker compose up -d`, the in-container
-  `ynab-clone` shim, and the AC-1 timed clean-machine install. Everything
+  `tyche` shim, and the AC-1 timed clean-machine install. Everything
   inside the container boundary is verified (built `server/dist/cli.js`
   smoke-tested directly; compose config valid). Calvin: run
   `docker compose build && docker compose up -d`, then
-  `docker compose exec app ynab-clone backup`, and time a clean-machine
+  `docker compose exec app tyche backup`, and time a clean-machine
   first-run against the README.

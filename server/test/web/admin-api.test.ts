@@ -2,13 +2,13 @@ import { mkdtempSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { CSRF_HEADER, milliunits } from '@ynab-clone/shared';
+import { CSRF_HEADER, milliunits } from '@tyche/shared';
 import type {
   BackupRunResponse,
   BackupsResponse,
   BootConsistencyResponse,
   ConsistencyCheckResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import { INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
 import { createAccount, createTransaction } from '../../src/ledger/index.js';
 import { createTestRig, type TestRig } from './helpers.js';
@@ -25,7 +25,7 @@ describe('ops API (E7)', () => {
   let backupsDir: string;
 
   beforeEach(async () => {
-    backupsDir = mkdtempSync(join(tmpdir(), 'ynab-e7-api-backups-'));
+    backupsDir = mkdtempSync(join(tmpdir(), 'tyche-e7-api-backups-'));
     rig = await createTestRig({
       backupsDir,
       bootConsistency: {
@@ -93,7 +93,7 @@ describe('ops API (E7)', () => {
     const run = await rig.inject({ method: 'POST', url: '/api/admin/backup' });
     expect(run.statusCode).toBe(200);
     const body = run.json<BackupRunResponse>();
-    expect(body.artifact.name).toMatch(/^ynab-clone-backup-.*\.tar\.gz$/);
+    expect(body.artifact.name).toMatch(/^tyche-backup-.*\.tar\.gz$/);
     expect(body.artifact.sizeBytes).toBeGreaterThan(0);
     expect(readdirSync(backupsDir)).toEqual([body.artifact.name]);
 

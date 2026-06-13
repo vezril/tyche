@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3';
-import { formatMilliunits, milliunits } from '@ynab-clone/shared';
+import { formatMilliunits, milliunits } from '@tyche/shared';
 import { computeBudget } from '../budget/engine.js';
 import { loadEngineInputs } from '../budget/queries.js';
 import { laterMonth } from '../budget/month.js';

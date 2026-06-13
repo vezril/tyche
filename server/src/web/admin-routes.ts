@@ -6,7 +6,7 @@ import type {
   BackupsResponse,
   BootConsistencyResponse,
   ConsistencyCheckResponse,
-} from '@ynab-clone/shared';
+} from '@tyche/shared';
 import {
   createBackup,
   DEFAULT_BACKUP_RETENTION,

@@ -1,5 +1,5 @@
-import { milliunits, parseDollarsToMilliunits, type Milliunits } from '@ynab-clone/shared';
-import type { TransactionStatus } from '@ynab-clone/shared';
+import { milliunits, parseDollarsToMilliunits, type Milliunits } from '@tyche/shared';
+import type { TransactionStatus } from '@tyche/shared';
 import { readCsvTable, type CsvTable } from './csv.js';
 import { MigrationError } from './errors.js';
 

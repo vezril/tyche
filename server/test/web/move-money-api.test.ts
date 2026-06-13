@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { AccountResponse, BudgetMonthResponse } from '@ynab-clone/shared';
+import type { AccountResponse, BudgetMonthResponse } from '@tyche/shared';
 import { INFLOW_READY_TO_ASSIGN_CATEGORY_ID } from '../../src/db/seed.js';
 import { createTestRig, type TestRig } from './helpers.js';
 
@@ -194,7 +194,7 @@ describe('move money API (E3.S4)', () => {
     const unauthed = await rig.app.inject({
       method: 'POST',
       url: '/api/budget/2026-06/move',
-      headers: { 'x-ynab-csrf': '1' },
+      headers: { 'x-tyche-csrf': '1' },
       payload: { fromCategoryId: 'groceries', toCategoryId: 'dining', amount: '10.00' },
     });
     expect(unauthed.statusCode).toBe(401);

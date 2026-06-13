@@ -1,12 +1,12 @@
 {
-  "name": "@ynab-clone/server",
+  "name": "@tyche/server",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "Fastify app server: domain modules (budget/ledger/importing/auth/admin/web per ADR-001), SQLite + migrations (ADR-003).",
   "main": "./dist/index.js",
   "bin": {
-    "ynab-clone": "./dist/cli.js"
+    "tyche": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsc -b",
@@ -20,7 +20,7 @@
     "@fastify/cookie": "^11.0.2",
     "@fastify/multipart": "^10.0.0",
     "@fastify/static": "^8.0.0",
-    "@ynab-clone/shared": "*",
+    "@tyche/shared": "*",
     "argon2": "^0.44.0",
     "better-sqlite3": "^12.0.0",
     "fastify": "^5.0.0",

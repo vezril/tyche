@@ -38,14 +38,14 @@ import Database from 'better-sqlite3';
 
 export const SNAPSHOT_FILE_NAME = 'app.db';
 export const MANIFEST_FILE_NAME = 'manifest.json';
-export const BACKUP_PREFIX = 'ynab-clone-backup-';
+export const BACKUP_PREFIX = 'tyche-backup-';
 /** Keep the N most recent scheduled artifacts (E7.S1 AC-5 retention). */
 export const DEFAULT_BACKUP_RETENTION = 14;
 /** Settings key stamped by the daily scheduler (RPO ≤ 24 h bookkeeping). */
 export const LAST_BACKUP_SETTING_KEY = 'backup_last_run_at';
 
 export interface BackupManifest {
-  format: 'ynab-clone-backup/1';
+  format: 'tyche-backup/1';
   createdAt: string;
   appVersion: string;
   /** Applied schema migrations at backup time (restore-compat documentation). */
@@ -106,7 +106,7 @@ function buildManifest(db: Database.Database, createdAt: string, appVersion: str
     )
     .get() as { accounts: number; transactions: number };
   return {
-    format: 'ynab-clone-backup/1',
+    format: 'tyche-backup/1',
     createdAt,
     appVersion,
     schemaMigrations,
@@ -129,7 +129,7 @@ export function createBackup(db: Database.Database, options: CreateBackupOptions
   const name = `${prefix}${timestampSlug(createdAtDate)}.tar.gz`;
   const artifactPath = join(backupsDir, name);
 
-  const staging = mkdtempSync(join(tmpdir(), 'ynab-backup-'));
+  const staging = mkdtempSync(join(tmpdir(), 'tyche-backup-'));
   try {
     // Point-in-time consistent snapshot, online (ADR-003 mechanism).
     db.prepare('VACUUM INTO ?').run(join(staging, SNAPSHOT_FILE_NAME));
@@ -196,7 +196,7 @@ export interface RestoreResult {
  */
 export function restoreBackup(artifactPath: string, databasePath: string, now: () => Date = () => new Date()): RestoreResult {
   if (!existsSync(artifactPath)) throw new Error(`backup artifact not found: ${artifactPath}`);
-  const staging = mkdtempSync(join(tmpdir(), 'ynab-restore-'));
+  const staging = mkdtempSync(join(tmpdir(), 'tyche-restore-'));
   try {
     runTar(['-xzf', artifactPath, '-C', staging]);
     const snapshotPath = join(staging, SNAPSHOT_FILE_NAME);

@@ -1,6 +1,6 @@
-# ynab-clone
+# Tyche
 
-Self-hosted, single-user envelope-budgeting app (YNAB clone). TypeScript modular
+A self-hosted, single-user YNAB-style envelope-budgeting app. TypeScript modular
 monolith: Node 22 + Fastify, SQLite (`better-sqlite3`, WAL + `synchronous=FULL`),
 React + Vite SPA — one container, one volume. See `docs/architecture.md` and
 `docs/adr/` for the decisions; `docs/stories/` for the plan.
@@ -26,7 +26,7 @@ For the dev server, point your browser at <http://localhost:5173>. The API dev
 server needs a writable DB path and a master key, e.g.:
 
 ```sh
-DATABASE_PATH=./data/app.db MASTER_KEY=$(openssl rand -hex 32) npm run dev -w @ynab-clone/server
+DATABASE_PATH=./data/app.db MASTER_KEY=$(openssl rand -hex 32) npm run dev -w @tyche/server
 ```
 
 ---
@@ -39,7 +39,7 @@ On the home server (Docker + compose installed, LAN or Tailscale only — no
 public URL, domain, or port-forwarding needed):
 
 ```sh
-git clone <this repo> && cd ynab-clone     # or just copy docker-compose.yml + .env.example
+git clone <this repo> && cd tyche     # or just copy docker-compose.yml + .env.example
 cp .env.example .env
 # 1. REQUIRED: generate the field-encryption master key (ADR-007)
 sed -i.bak "s/^MASTER_KEY=$/MASTER_KEY=$(openssl rand -hex 32)/" .env && rm -f .env.bak
@@ -66,7 +66,7 @@ One command, one artifact (`VACUUM INTO` snapshot + manifest, safe while the
 app runs):
 
 ```sh
-docker compose exec app ynab-clone backup
+docker compose exec app tyche backup
 ```
 
 A **daily backup also runs automatically inside the app** (keep-14 retention
@@ -84,7 +84,7 @@ On the target host (same or new machine), with the same `.env` in place:
 
 ```sh
 docker compose stop app                       # restore requires a stopped app
-docker compose run --rm app ynab-clone restore /data/backups/<artifact>.tar.gz
+docker compose run --rm app tyche restore /data/backups/<artifact>.tar.gz
 docker compose up -d
 ```
 
@@ -95,7 +95,7 @@ simply migrates forward at boot (ADR-003).
 
 If the artifact is on the host rather than in the volume, copy it in first:
 `docker compose cp ./<artifact>.tar.gz app:/data/backups/` (or use
-`docker run -v ynab-clone_data:/data …` while the app is stopped).
+`docker run -v tyche_data:/data …` while the app is stopped).
 
 ### Restore drill (quarterly — SM-4 counter-metric)
 
@@ -103,15 +103,15 @@ The scripted comparison from FR-35, in three commands (budget ~15 min, well
 inside the 1 h RTO):
 
 ```sh
-docker compose exec app ynab-clone summary > summary-before.json   # host A
+docker compose exec app tyche summary > summary-before.json   # host A
 # … restore the latest artifact on host B (or a scratch dir) as above …
-docker compose exec app ynab-clone summary > summary-after.json    # host B
+docker compose exec app tyche summary > summary-after.json    # host B
 diff summary-before.json summary-after.json && echo "DRILL PASS"
 ```
 
 `summary` prints canonical JSON: per-account working/cleared balances, the
 latest month's Ready to Assign, transaction count, and the consistency-check
-verdict. Identical output = identical state. (`ynab-clone check` exits
+verdict. Identical output = identical state. (`tyche check` exits
 non-zero on any money-math mismatch, for scripting.)
 
 ### MASTER_KEY management — and what losing it costs
@@ -139,7 +139,7 @@ docker compose pull && docker compose up -d
 
 On boot with pending migrations the entrypoint automatically:
 
-1. takes a **pre-migration backup** (`ynab-clone-pre-migration-….tar.gz`,
+1. takes a **pre-migration backup** (`tyche-pre-migration-….tar.gz`,
    never reaped by retention),
 2. records a **balance checksum** (every account's working/cleared sums, row
    counts, total assignments),
@@ -174,7 +174,7 @@ categories, transfers, statuses, approval, provenance.
 
 Runs at boot and after every migration; logs a summary, and a mismatch shows a
 red banner on the **Ops** screen. Run it on demand there ("Run consistency
-check"), via `docker compose exec app ynab-clone check`, or
+check"), via `docker compose exec app tyche check`, or
 `POST /api/admin/consistency/run`. It recomputes every account balance,
 every category-month, and every month's RTA from raw rows via an independent
 path and compares with exact integer equality.
@@ -203,7 +203,7 @@ seam). Manual sandbox verification:
    carve-out; the script loads only on that screen) accepts `user_good` /
    `pass_good`. Map discovered accounts to app accounts.
 3. Sync from the UI (**Sync now**) or headless:
-   `npm run sync:sandbox -w @ynab-clone/server` (dev).
+   `npm run sync:sandbox -w @tyche/server` (dev).
 
 **Before production:** in the Plaid dashboard, confirm the Trial/production
 plan actually lists **RBC Royal Bank** as a supported institution for
@@ -239,11 +239,11 @@ app's port in that case.)
 ## Layout
 
 ```
-shared/   @ynab-clone/shared — API types + branded Milliunits money (ADR-004)
-server/   @ynab-clone/server — Fastify; modules: budget/ ledger/ importing/
+shared/   @tyche/shared — API types + branded Milliunits money (ADR-004)
+server/   @tyche/server — Fastify; modules: budget/ ledger/ importing/
           migration/ auth/ admin/ web/ (ADR-001 seams, lint-enforced)
-          + db/ + migrations/ + the ynab-clone operator CLI (src/cli.ts)
-web/      @ynab-clone/web — React SPA; built bundle served by the server (NFR-2)
+          + db/ + migrations/ + the tyche operator CLI (src/cli.ts)
+web/      @tyche/web — React SPA; built bundle served by the server (NFR-2)
 scripts/  ops/ — NFR-2 network-capture + NFR-6 resource-sampling gate scripts
 ```
 
