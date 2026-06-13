@@ -1,0 +1,29 @@
+{
+  "name": "ynab-clone",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted single-user envelope-budgeting app (YNAB clone). Modular monolith per ADR-001.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "build": "npm run build -w @ynab-clone/shared && npm run build -w @ynab-clone/server && npm run build -w @ynab-clone/web",
+    "dev": "npm run dev -w @ynab-clone/server & npm run dev -w @ynab-clone/web & wait",
+    "test": "npm run test -w @ynab-clone/shared && npm run test -w @ynab-clone/server && npm run test -w @ynab-clone/web",
+    "lint": "eslint .",
+    "typecheck": "tsc -b shared server web"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.0"
+  }
+}

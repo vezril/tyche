@@ -1,0 +1,29 @@
+{
+  "name": "@ynab-clone/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "React + Vite SPA shell (ADR-002, ADR-008). All assets self-hosted; served by the Fastify container in production (NFR-2).",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ynab-clone/shared": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0",
+    "vitest": "^3.2.6"
+  }
+}

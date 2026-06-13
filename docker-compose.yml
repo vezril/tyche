@@ -1,0 +1,17 @@
+# Deploy = `docker compose up -d`, nothing else (NFR-5, architecture §8).
+# ONE app container + a named volume for SQLite (ADR-001, ADR-003).
+services:
+  app:
+    image: ghcr.io/cference/ynab-clone:${VERSION:-latest}
+    build: .
+    ports:
+      # LAN only; no port-forwarding, no inbound URL (NFR-4/5). PORT from .env
+      # is also passed into the container, so the server listens on the same port.
+      - "${PORT:-8080}:${PORT:-8080}"
+    env_file: .env              # MASTER_KEY (reserved, generated in E1.S2/S3), TZ, …
+    volumes:
+      - data:/data              # data/app.db (+WAL), data/backups/ (E7.S1)
+    restart: unless-stopped     # NFR-8 self-recovery
+
+volumes:
+  data:

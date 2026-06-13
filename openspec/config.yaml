@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  Self-hosted, single-user YNAB clone (envelope/zero-based budgeting, CAD-only,
+  cash accounts only) with RBC bank sync via Plaid (Trial plan, 6h polling, no
+  webhooks) and OFX/CSV import fallback.
+  Stack (ADR-002): TypeScript end-to-end — Node 22 + Fastify + better-sqlite3
+  (WAL) backend, React + Vite SPA frontend, REST + cookie sessions, single
+  Docker container via docker-compose.
+  Money is integer milliunits (ADR-004); budget aggregates recomputed on read,
+  never stored (ADR-005); Plaid access tokens AES-256-GCM encrypted at rest,
+  master key in .env (ADR-007).
+  Governing artifacts: docs/prd.md (FR-N/NFR-N IDs — trace work to them),
+  docs/architecture.md, docs/adr/, docs/stories/.
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours

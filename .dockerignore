@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+**/dist
+**/dist-types
+**/*.tsbuildinfo
+.git
+data
+docs
+openspec
+.env
+*.db
+*.db-wal
+*.db-shm
